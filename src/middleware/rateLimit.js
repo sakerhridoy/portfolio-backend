@@ -1,0 +1,27 @@
+import rateLimit from 'express-rate-limit';
+
+const jsonRateLimitHandler = (message) => (req, res) => {
+  res.status(429).json({ success: false, message });
+};
+
+/**
+ * Global limiter applied to the whole API.
+ */
+export const globalLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 300,
+  standardHeaders: true,
+  legacyHeaders: false,
+  handler: jsonRateLimitHandler('Too many requests, please try again later.'),
+});
+
+/**
+ * Strict limiter for sensitive endpoints (login, public lead creation).
+ */
+export const strictLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 10,
+  standardHeaders: true,
+  legacyHeaders: false,
+  handler: jsonRateLimitHandler('Too many attempts, please try again later.'),
+});
