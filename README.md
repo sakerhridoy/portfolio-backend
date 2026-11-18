@@ -1,4 +1,4 @@
-# SakerHridoy Admin Backend (Phase 1)
+# SakerHridoy Admin Backend
 
 Node.js + Express + MongoDB backend for the SakerHridoy portfolio admin system.
 
